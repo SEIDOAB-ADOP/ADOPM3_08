@@ -31,9 +31,8 @@ namespace ADOPM3_08_01
         }
 
         public Task<int> GetPrimesCountAsync(int start, int count)
-        { 
-            return Task.Run(() => GetPrimesCount(start, count));
-        }
+            => Task.Run(() => GetPrimesCount(start, count));
+
 
 
         public int GetPrimesCount(int start, int count)
@@ -52,42 +51,44 @@ namespace ADOPM3_08_01
             timer.Start();
             Console.WriteLine("\nSyncronous calculations of Primes");
             var count1 = new CPUBoundAsync().GetPrimesCount(2, 2_000_000);
-            var count2 = new CPUBoundAsync().GetPrimesCount(2, 2_000_000);
-            Console.WriteLine(count1 + count2);
+            var count2 = new CPUBoundAsync().GetPrimesCount(2_000_000, 4_000_000);
+            Console.WriteLine($"{count1},  {count2} = {count1 + count2}");
             timer.Stop();
             Console.WriteLine($"{timer.ElapsedMilliseconds:N0}");  //3 s
 
+            
             
             //asyncronous calculations of Primes using classical async / await pattern
             timer.Restart();
             Console.WriteLine("\nAsyncronous calculations of Primes using classical async / await pattern");
             var count3 = await new CPUBoundAsync().GetPrimesCountAsync(2, 2_000_000);
-            var count4 = await new CPUBoundAsync().GetPrimesCountAsync(2, 2_000_000);
+            var count4 = await new CPUBoundAsync().GetPrimesCountAsync(2_000_000, 4_000_000);
             Console.WriteLine(count3+count4);
             timer.Stop();
             Console.WriteLine($"{timer.ElapsedMilliseconds:N0}"); //3s
-
+            
             
             //asyncronous calculations of Primes using classical running the two Tasks in parallell
             timer.Restart();
             Console.WriteLine("\nAsyncronous calculations of Primes using classical running the two Tasks in parallell");
             var countTask1 = new CPUBoundAsync().GetPrimesCountAsync(2, 2_000_000);
-            var countTask2 = new CPUBoundAsync().GetPrimesCountAsync(2, 2_000_000);
+            var countTask2 = new CPUBoundAsync().GetPrimesCountAsync(2_000_000, 4_000_000);
 
             Task.WaitAll(countTask1, countTask2);
-            Console.WriteLine(countTask1.Result + countTask2.Result);
+            Console.WriteLine($"{countTask1.Result},  {countTask2.Result} = {countTask1.Result + countTask2.Result}");
             timer.Stop();
             Console.WriteLine($"{timer.ElapsedMilliseconds:N0}"); //1 s
             
-            
+            /*
             Console.WriteLine("\nInvoking DisplayPrimeCountsAsync");
             await new CPUBoundAsync().DisplayPrimeCountsAsync();
-            
+            */
             
             // IO Bound Async - using already asyncronous MethodAsync
             Console.WriteLine("\nInvoking GetDotNetCountAsync");
             int count = await new IOBoundAsync().GetDotNetCountAsync();
             Console.WriteLine($"Number of times .Net keyword displayed is {count}");
+            
             
         }
     }

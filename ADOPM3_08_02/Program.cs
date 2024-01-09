@@ -37,9 +37,10 @@ namespace ADOPM3_08_02
                 var t1 = TaskOneAsync();
                 var t2 = TaskTwoAsync();
 
-                await t1;
-                await t2;
+                //await t1;
+                //await t2;
 
+                await Task.WhenAll(t1, t2);
                 watch.Stop();
                 return watch.ElapsedMilliseconds;
             }
@@ -50,8 +51,10 @@ namespace ADOPM3_08_02
             long exe1 = mt.Run1().Result;
             Console.WriteLine($"Run1: {exe1}ms");
 
+            
             long exe2 = mt.Run2().Result;
             Console.WriteLine($"Run2: {exe2}ms");
+            
         }
     }
     //Exercise:

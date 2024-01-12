@@ -76,6 +76,8 @@ namespace ADOPM3_08_06
 
             Console.WriteLine("\nInvoking DisplayPrimeCountsAsync - and a third time from cache");
             await PrimeNumberService.DisplayPrimeCountsAsync();
+
+            Console.ReadKey();
         }
     }
 }

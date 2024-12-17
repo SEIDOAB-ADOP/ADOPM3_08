@@ -74,7 +74,7 @@ namespace ADOPM3_08_01
             var countTask1 = new CPUBoundAsync().GetPrimesCountAsync(2, 2_000_000);
             var countTask2 = new CPUBoundAsync().GetPrimesCountAsync(2_000_000, 4_000_000);
 
-            Task.WaitAll(countTask1, countTask2);
+            await Task.WhenAll(countTask1, countTask2);
             Console.WriteLine($"{countTask1.Result},  {countTask2.Result} = {countTask1.Result + countTask2.Result}");
             timer.Stop();
             Console.WriteLine($"{timer.ElapsedMilliseconds:N0}"); //1 s

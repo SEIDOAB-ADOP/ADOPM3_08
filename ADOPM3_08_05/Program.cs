@@ -7,7 +7,7 @@ namespace ADOPM3_08_05
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var random = new Random();
             IEnumerable<Task<int>> tasks = Enumerable.Range(1, 5).Select(n => Task.Run(async () =>
@@ -18,17 +18,13 @@ namespace ADOPM3_08_05
                 return n;
             }));
 
+
             Task<Task<int>> whenAnyTask = Task.WhenAny(tasks);
-            Task<int> completedTask = whenAnyTask.Result;
+            Task<int> completedTask = await whenAnyTask;
             Console.WriteLine("The winner is: task " + completedTask.Result);
 
             Task.WhenAll(tasks).Wait();
             Console.WriteLine("All tasks finished!");
         }
     }
-
-    //Exercise:
-    //1.    Discuss in the group the Linq statement so you understand the usage. Why am I using Select?
-    //2.    Modify Code in Example 10_03 to create these 5 tasks, do WaitAny() and WaitAll() when clicking the Button using async/await 
-    //      pattern not to block UI. Write to myGreetings.Text the winner.
 }

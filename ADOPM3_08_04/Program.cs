@@ -34,7 +34,7 @@ namespace ADOPM3_08_04
     }
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.WriteLine("Invoking DisplayPrimeCountsAsync");
 
@@ -45,12 +45,7 @@ namespace ADOPM3_08_04
             });
 
             //Create and run the task, but passing the progressReporter as an argument
-            var t1 = new CPUBoundAsync().DisplayPrimeCountsAsync(progressReporter);
-            t1.Wait();
+            await new CPUBoundAsync().DisplayPrimeCountsAsync(progressReporter);
         }
     }
-    //Exercise
-    //1.    Implement progress reporting in Example 10_03 when writing to the stream (10%, 20%...)
-    //      Notice that you can update myGreeting.Text in the progressReporter instance as creating a Progress object
-    //      internally has the UI SyncronizationContext as the inistance was created in the UI context
 }

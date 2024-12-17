@@ -45,14 +45,14 @@ namespace ADOPM3_08_02
                 return watch.ElapsedMilliseconds;
             }
         }
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var mt = new myTasks();
-            long exe1 = mt.Run1().Result;
+            long exe1 = await mt.Run1();
             Console.WriteLine($"Run1: {exe1}ms");
 
             
-            long exe2 = mt.Run2().Result;
+            long exe2 = await mt.Run2();
             Console.WriteLine($"Run2: {exe2}ms");
             
         }

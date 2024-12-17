@@ -18,7 +18,7 @@ namespace ADOPM3_08_06
 
         static public async Task DisplayPrimeCountsAsync()
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 10; i++)
             {
                 //Create my Cache Key
                 int start = i * 1_000_000 + 2;
@@ -76,8 +76,6 @@ namespace ADOPM3_08_06
 
             Console.WriteLine("\nInvoking DisplayPrimeCountsAsync - and a third time from cache");
             await PrimeNumberService.DisplayPrimeCountsAsync();
-
-            Console.ReadKey();
         }
     }
 }

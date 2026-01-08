@@ -57,11 +57,12 @@ namespace ADOPM3_08_06
             Console.WriteLine("Done!");
         }
 
-        static public Task<int> GetPrimesCountAsync(int start, int count)
+        static public Task<int> GetPrimesCountAsync(int start, int count) => Task.Run(() => GetPrimesCount(start, count));
+
+        static public int GetPrimesCount(int start, int count)
         {
-            return Task.Run(() =>
-               Enumerable.Range(start, count).Count(n =>
-                 Enumerable.Range(2, (int)Math.Sqrt(n) - 1).All(i => n % i > 0)));
+            return Enumerable.Range(start, count).Count(n =>
+                Enumerable.Range(2, (int)Math.Sqrt(n) - 1).All(i => n % i > 0));
         }
     }
     class Program
